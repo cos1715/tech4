@@ -1,0 +1,56 @@
+.section-details{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 50px auto auto auto auto;
+    width: 50%;
+    margin: auto;
+    border: 1px solid black;
+}
+
+.nav-userDatails{
+    grid-column: span 2;
+    grid-row: 1;
+    background-color: #737373;
+    padding: 10px;
+}
+
+.img-user-details{
+    grid-column: 1;
+    grid-row: 2;
+    height: 250px;
+    padding: 10px;
+}
+
+.user-details{
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.div-followers{
+    padding: 10px;
+    grid-column: span 2;
+    grid-row: 3;
+}
+
+.div-followers_icons{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.div-followers_icons img{
+    border-radius: 50px;
+    height: 50px;
+}
+
+.div-subs{
+    padding: 10px;
+    grid-column: span 2;
+    grid-row: 4;
+}
+
+.div-orgs{
+    padding: 10px;
+    grid-column: span 2;
+    grid-row: 5;
+}

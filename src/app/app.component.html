@@ -1,0 +1,126 @@
+<header>
+
+  <input type="text" placeholder="Search..."  #input (keyup)="onSearch(input.value)" />
+
+  <div id="checkbox-grid">
+    <div id="checkbox-flex">
+      <p class="toggle-p">Users</p>
+      <label class="switch">
+        <input type="checkbox" (click)="selectType()">
+        <span class="slider"></span>
+      </label>
+      <p class="toggle-p">Orgs</p>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section *ngIf="userDetailsFlag===false">
+    <div *ngIf="filterFlag===false">
+      <div *ngIf="isUser===true">
+        <div class="user-card" *ngFor="let user of usersOnPage">
+          <img [src]="user.avatar_url" alt="User Image" class="img-user">
+          <p class="p-userName">{{user.login}}</p>
+          <button class="btn-profile">
+            <a [href]="user.html_url">See profile</a>
+          </button>
+          <button class="btn-details" (click)="showDetail(user)">See details</button>
+        </div>
+      </div>
+
+      <div *ngIf="isUser===false">
+        <div class="user-card" *ngFor="let user of orgsOnPage">
+          <img [src]="user.avatar_url" alt="User Image" class="img-user">
+          <p class="p-userName">{{user.login}}</p>
+          <button class="btn-profile">
+            <a [href]="user.html_url">See profile</a>
+          </button>
+          <button class="btn-details" (click)="showDetail(user)">See details</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="filterFlag===true">
+      <div *ngIf="isUser===true">
+        <div class="user-card" *ngFor="let user of filteredUsers">
+          <img [src]="user.avatar_url" alt="User Image" class="img-user">
+          <p class="p-userName">{{user.login}}</p>
+          <button class="btn-profile">
+            <a [href]="user.html_url">See profile</a>
+          </button>
+          <button class="btn-details" (click)="showDetail(user)">See details</button>
+        </div>
+      </div>
+
+      <div *ngIf="isUser===false">
+        <div class="user-card" *ngFor="let user of filteredOrgs">
+          <img [src]="user.avatar_url" alt="User Image" class="img-user">
+          <p class="p-userName">{{user.login}}</p>
+          <button class="btn-profile">
+            <a [href]="user.html_url">See profile</a>
+          </button>
+          <button class="btn-details" (click)="showDetail(user)">See details</button>
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+
+  <section *ngIf="userDetailsFlag===true" class="section-details">
+
+    <nav class="nav-userDatails">
+      <button (click)="showHide()">Back to users list</button>
+    </nav>
+
+
+    <img [src]="userDetails.avatar_url" alt="User Image" class="img-user-details">
+    <div class="user-details">
+      <h2 class="p-userName-details">{{userDetails.login}} | {{userDetails.name}}</h2>
+      <p class="p-userName-details">followers: {{userDetailsFollowers.length}}</p>
+      <p class="p-userName-details">following: {{userDetailsFollowing.length}}</p>
+      <p class="p-userName-details">public gists: {{userDetailsGists.length}}</p>
+      <p class="p-userName-details">public repos: {{userDetailsRepos.length}}</p>
+      <p class="p-userName-details">member since: {{date}}</p>
+    </div>
+
+    <div class="div-followers">
+      <p>Followers:</p>
+      <div class="div-followers_icons">
+        <span *ngFor="let followers of userDetailsFollowers">
+          <a [href]="followers.html_url">
+            <img [src]="followers.avatar_url">
+          </a>
+        </span>
+      </div>
+    </div>
+
+    <div class="div-subs">
+      <p>Subscriptions:</p>
+      <ul *ngFor="let sub of userDetailsSub">
+        <li>{{sub.name}}</li>
+      </ul>
+    </div>
+
+    <div class="div-orgs">
+      <p>Organizations:</p>
+      <ul *ngFor="let orgs of userDetailsOrgs">
+        <li>{{orgs.login}}</li>
+      </ul>
+    </div>
+
+  </section>
+
+
+</main>
+
+<footer *ngIf="userDetailsFlag===false">
+  <button id="btn-prev" (click)="decrease()">Previous page</button>
+  <span class="pagination">
+    <p *ngIf="isUser===true">{{userIndex/10}}</p>
+    <p *ngIf="isUser===false">{{orgIndex/10}}</p>
+  </span>
+  <button id="btn-next" (click)="increase()">Next page</button>
+</footer>
